@@ -1,5 +1,4 @@
 export const productos = [
-  // 🎧 Auriculares
   {
     id: 1,
     nombre: "Metal Gear Solid Delta: Snake Eater",
@@ -18,8 +17,6 @@ export const productos = [
     precio: "109,99 €",
     img: "https://m.media-amazon.com/images/I/61kchbxWJ5L._AC_SY300_SX300_QL70_ML2_.jpg",
   },
-
-  // 🖱️ Ratones
   {
     id: 4,
     nombre: "Ratón Logitech G502 HERO",
@@ -38,8 +35,6 @@ export const productos = [
     precio: "79,99 €",
     img: "https://m.media-amazon.com/images/I/61x0o7cBmcL._AC_UY218_.jpg",
   },
-
-  // ⌨️ Teclados
   {
     id: 7,
     nombre: "Teclado Corsair K70 RGB",
@@ -58,8 +53,6 @@ export const productos = [
     precio: "199,99 €",
     img: "https://m.media-amazon.com/images/I/61rojHLYl4L._AC_UY218_.jpg",
   },
-
-  // 🖥️ Monitores
   {
     id: 10,
     nombre: "Monitor ASUS TUF 27” 165Hz",
@@ -78,8 +71,6 @@ export const productos = [
     precio: "299,99 €",
     img: "https://m.media-amazon.com/images/I/81QpkIctqPL._AC_SL1500_.jpg",
   },
-
-  // 🪑 Sillas
   {
     id: 13,
     nombre: "Silla Gaming Razer Iskur",
@@ -98,8 +89,6 @@ export const productos = [
     precio: "519,99 €",
     img: "https://m.media-amazon.com/images/I/41+v7Tb4zDL._AC_UL320_.jpg",
   },
-
-  // 🎤 Micrófonos
   {
     id: 16,
     nombre: "Micrófono Blue Yeti",
@@ -118,8 +107,6 @@ export const productos = [
     precio: "59,99 €",
     img: "https://m.media-amazon.com/images/I/61u37fqa4DL._AC_UL320_.jpg",
   },
-
-  // 💻 Portátiles Gaming
   {
     id: 19,
     nombre: "Portátil ASUS ROG Strix G15",
