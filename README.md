@@ -1,16 +1,13 @@
-# React + Vite
+# Justificación de accesibilidad - Emilio Garcia 2K DAM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Cuento con las siguientes caracteristicas de accesibilidad:
 
-Currently, two official plugins are available:
+La página ha sido configurada para que se pueda navegar con teclado, haciendola asi mas accesible y facil de navegar.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img width="922" height="326" alt="imatge" src="https://github.com/user-attachments/assets/3d9e05d3-1083-4a5f-923d-3e3d01548f4a" />
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Como se ve en la imagen siguiente, la página ha quedado completamente accesible si quieres usar un lector de pantalla.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<img width="1920" height="1031" alt="imatge" src="https://github.com/user-attachments/assets/57258620-662f-46a9-a6ff-6a0b4d2abd15" />
