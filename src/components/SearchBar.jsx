@@ -1,15 +1,17 @@
-function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar...", className = '' }) {
+function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar..."}) {
     return (
-        <div className={`mb-6 w-full max-w-lg mx-auto mt-4 ${className}`.trim()}>
+        <div className="mb-8 w-full max-w-lg mx-auto">
             <label htmlFor="search-input" className="sr-only">{placeholder}</label>
 
             <input
                 id="search-input"
-                type="search"
+                type="text"
                 placeholder={placeholder}
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-md bg-white placeholder-gray-500 text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300 transition duration-150 ease-in-out"
+                className="w-full p-3 border-2 border-gray-300 rounded-lg shadow-inner
+focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition
+duration-150 ease-in-out"
                 aria-label={placeholder}
             />
         </div>

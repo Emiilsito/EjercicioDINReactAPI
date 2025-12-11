@@ -35,35 +35,27 @@ export default function ProductosPage() {
   return (
     <Layout>
       {/* Contenedor que centra el contenido entre header y footer */}
-      <div className="w-full px-6 bg-white flex items-center justify-center" style={{ minHeight: 'calc(100vh - var(--header-height, 0px) - var(--footer-height, 0px))', paddingTop: 'calc(var(--header-height) + 2rem)', paddingBottom: 'calc(var(--footer-height) + 2rem)' }}>
+      <div className="w-full px-6 bg-gray-200 flex items-center justify-center" style={{ minHeight: 'calc(100vh - var(--header-height, 0px) - var(--footer-height, 0px))', paddingTop: 'calc(var(--header-height) + 2rem)', paddingBottom: 'calc(var(--footer-height) + 2rem)' }}>
         <div className="max-w-6xl w-full">
           <header className="w-full text-center">
-            <h1 id="productos-heading"
-              style={{
-                fontSize: 'var(--heading-h1-font-size)',
-                fontWeight: 'var(--heading-h1-font-weight)',
-                color: 'var(--color-primary)'
-              }}
-              className="text-center mx-auto"
-            >
+            <h1 id="productos-heading" className="text-center mx-auto text-h1">
               Nuestros Productos
             </h1>
 
-            <p className="text-center mx-auto" style={{ fontSize: 'var(--heading-h4-font-size)', color: 'var(--color-grey-2)', lineHeight: 1.4 }}>
+            <div className="w-full flex justify-center">
+            <SearchBar
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              placeholder="Buscar productos..."
+            />
+          </div>
+
+            <p className="text-center mx-auto text-h4" >
               Nuestro compromiso es claro: <strong>Ofrecer calidad al mejor precio</strong>
             </p>
-
-            <div className="flex justify-center">
-              <SearchBar
-                className="mx-auto max-w-lg mb-6 mt-4"
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                placeholder="Buscar productos..."
-              />
-            </div>
           </header>
 
-          <div className="w-full mt-14">
+          <div className="w-full mt-4">
             <ProductList items={filteredProductos} onSelect={(p) => console.log('Producto seleccionado:', p.id)} />
           </div>
         </div>

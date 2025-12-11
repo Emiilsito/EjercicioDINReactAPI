@@ -19,7 +19,7 @@ export default function ProductDetailPage() {
     return (
       <Layout bgPage={'var(--color-white)'}>
         <div className="min-h-screen px-6 py-20 text-center">
-          <h2 style={{ color: 'var(--color-primary)' }}>Producto no encontrado</h2>
+          <h2 className="text-h2">Producto no encontrado</h2>
         </div>
       </Layout>
     );
@@ -30,11 +30,11 @@ export default function ProductDetailPage() {
       <div className="min-h-screen">
         {/* Outer wrapper: page background should be grey; card remains white */}
         <section aria-labelledby={`product-title-${producto.id}`} style={{ backgroundColor: 'var(--color-grey-5)', paddingTop: '2rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '24px 1fr 24px', height: 'calc(100vh - var(--header-height) - var(--footer-height) - 2rem)', alignItems: 'center' }}>
-            <aside aria-hidden="true" style={{ backgroundColor: 'var(--color-grey-5)' }} />
+          <div className="div-asside">
+            <aside aria-hidden="true asside-color" />
 
             {/* Center column with the card (vertically centered) */}
-            <div style={{ backgroundColor: 'var(--color-grey-5)', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="div-article">
               <article className="w-full max-w-6xl bg-white rounded-lg shadow-custom" style={{ padding: '4.5rem 2rem' }}>
                 {/* Back button was here but moved into the details column to avoid overlapping the image */}
                   <div className="mb-8">
@@ -43,13 +43,7 @@ export default function ProductDetailPage() {
                       aria-label="Volver a la lista de productos"
                       title="Volver a la lista de productos"
                       tabIndex={0}
-                      className="inline-block rounded-full font-semibold transition-transform transform hover:scale-105 focus:outline-none focus-ring-primary"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(6,110,204,1) 0%, rgba(3,60,114,1) 100%)',
-                        color: 'var(--color-white)',
-                        padding: '10px 22px',
-                        boxShadow: '0 6px 20px rgba(4,80,151,0.25)'
-                      }}
+                      className="inline-block rounded-full font-semibold transition-transform transform hover:scale-105 focus:outline-none focus-ring-primary button"
                     >
                       Volver
                     </Link>
@@ -89,7 +83,7 @@ export default function ProductDetailPage() {
               </article>
             </div>
 
-            <aside aria-hidden="true" style={{ backgroundColor: 'var(--color-grey-5)' }} />
+            <aside aria-hidden="true aside-color"/>
           </div>
         </section>
   </div>

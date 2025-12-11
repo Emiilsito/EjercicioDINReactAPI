@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
 
   --font-primary: 'Roboto', sans-serif;
@@ -96,6 +97,32 @@
   --footer-height: 260px;
 }
 
+.div-article{
+  background-Color: var(--color-grey-5); 
+  height: 100%; 
+  display: flex;
+  align-Items: center;
+  justify-Content: center
+}
+
+.asside-color{
+  background-Color: var(--color-grey-5)
+}
+
+.div-asside{
+  display: grid;
+  grid-template-columns: 24px 1fr 24px; 
+  height: calc(100vh - var(--header-height) - var(--footer-height) - 2rem);
+  align-Items: center
+}
+
+.button {
+    background: linear-gradient(180deg, rgba(6,110,204,1) 0%, rgba(3,60,114,1) 100%);
+    color: var(--color-white);
+    padding: 10px 22px;
+    box-Shadow: 0 6px 20px rgba(4,80,151,0.25)
+}
+
 /* Custom utilities used in components */
 .shadow-custom {
   box-shadow: var(--dropshadow);
@@ -130,10 +157,10 @@ body {
   font-size: var(--text-large-font-size);
   line-height: var(--text-large-line-height);
 }
-.text-h1 { font-size: var(--heading-h1-font-size); line-height: var(--heading-h1-line-height); font-weight: var(--heading-h1-font-weight); }
-.text-h2 { font-size: var(--heading-h2-font-size); line-height: var(--heading-h2-line-height); font-weight: var(--heading-h2-font-weight); }
+.text-h1 {font-size: var(--heading-h1-font-size); line-height: var(--heading-h1-line-height); font-weight: var(--heading-h1-font-weight); color: var(--color-primary);}
+.text-h2 { font-size: var(--heading-h2-font-size); line-height: var(--heading-h2-line-height); font-weight: var(--heading-h2-font-weight); color: var(--color-secondary);}
 .text-h3 { font-size: var(--heading-h3-font-size); line-height: var(--heading-h3-line-height); font-weight: var(--heading-h3-font-weight); }
-.text-h4 { font-size: var(--heading-h4-font-size); line-height: var(--heading-h4-line-height); font-weight: var(--heading-h4-font-weight); }
+.text-h4 { font-size: var(--heading-h4-font-size); line-height: var(--heading-h4-line-height); font-weight: var(--heading-h4-font-weight); color: var(--color-gray-700);}
 .text-h5 { font-size: var(--heading-h5-font-size); line-height: var(--heading-h5-line-height); font-weight: var(--heading-h5-font-weight); }
 .text-normal { font-size: var(--text-normal-font-size); line-height: var(--text-normal-line-height); }
 .text-large { font-size: var(--text-large-font-size); line-height: var(--text-large-line-height); }
