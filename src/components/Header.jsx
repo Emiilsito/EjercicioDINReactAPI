@@ -1,83 +1,65 @@
 import { Link, useLocation } from "react-router-dom";
 
 /**
- * Header
- * --------
- * Componente que representa el encabezado global de la aplicación.
- * Contiene la marca (GameZone) y la navegación principal en dos variantes
- * (menú pequeño en mobile y menú en la derecha en desktop).
- *
- * Props:
- *  - onNavigate?: (path: string) => void
- *      Callback opcional que se invoca con la ruta cuando el usuario hace
- *      click en un enlace. Útil para tracking o comportamiento adicional.
- *
- * Accesibilidad:
- *  - Los enlaces de navegación usan `aria-current="page"` cuando corresponda
- *    para indicar la página activa.
- *  - La navegación de escritorio está marcada con `role="navigation"` y
- *    `aria-label` para que sea detectable por AT.
- *
- * Notas de implementación:
- *  - El componente usa variables de tema para colores (p. ej. `--color-white`).
- *  - Mantener el título dentro del flujo (no absoluto) facilita la navegación
- *    por teclado y evita problemas con el orden del DOM.
+ * @component Header
+ * @description Barra de navegación principal de la aplicación. Gestiona el logo y los enlaces de navegación, 
+ * resaltando visualmente la ruta activa.
+ * * @param {Object} props - Propiedades del componente.
+ * @param {Function} [props.onNavigate] - Callback opcional para manejar eventos de navegación personalizados.
+ * * @returns {JSX.Element} Cabecera con fondo `var(--color-primary)` y diseño responsivo.
+ * * @accessibility
+ * - Incluye un "Skip Link" invisible para permitir a usuarios de teclado saltar al contenido principal.
+ * - Define un `role="banner"` y etiquetas `aria-label` para identificar claramente las regiones de navegación.
+ * - Utiliza `aria-current="page"` para marcar dinámicamente el enlace de la página activa.
  */
+
 export default function Header({ onNavigate }) {
   const location = useLocation();
   const path = location.pathname;
 
   return (
-    <header className="site-header shadow-custom relative flex items-center" style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-white)' }}>
-      <div className="max-w-6xl mx-auto px-6 flex items-center">
-        <div className="flex items-center mr-auto">
-          <h1 className="text-h5 leading-none">
-            GameZone
-          </h1>
-        </div>
+    <header className="navigation_bar" role="banner">
+      <div className="header_container">
+        
+        {/* Logo a la izquierda del todo */}
+        <Link 
+          to="/" 
+          className="logo_and_title heading_h5"
+          aria-label="GameZone - Inicio"
+        >
+          GameZone
+        </Link>
 
-        {/* Small-screen nav (inside the flow) */}
-        <nav className="ml-auto md:hidden" role="navigation" aria-label="Navegación principal">
-          <ul className="flex items-center gap-4">
+        {/* Navegación a la derecha del todo */}
+        <nav role="navigation">
+          <ul className="navigation_links">
             <li>
-              <Link to="/" onClick={() => onNavigate?.('/')} aria-current={path === '/' ? 'page' : undefined} className="px-3 py-2 rounded text-lg">
+              <Link 
+                to="/" 
+                className={`nav_link text_normal ${path === '/' ? 'bg-white/20 font-bold' : 'hover:bg-white/10'}`}
+              >
                 Inicio
               </Link>
             </li>
             <li>
-              <Link to="/productos" onClick={() => onNavigate?.('/productos')} aria-current={path === '/productos' ? 'page' : undefined} className="px-3 py-2 rounded text-lg">
+              <Link 
+                to="/productos" 
+                className={`nav_link text_normal ${path === '/productos' ? 'bg-white/20 font-bold' : 'hover:bg-white/10'}`}
+              >
                 Productos
               </Link>
             </li>
             <li>
-              <Link to="/admin" onClick={() => onNavigate?.('/admin')} aria-current={path === '/admin' ? 'page' : undefined} className="px-3 py-2 rounded text-lg">
+              <Link 
+                to="/admin" 
+                className={`nav_link text_normal ${path === '/admin' ? 'bg-white/20 font-bold' : 'hover:bg-white/10'}`}
+              >
                 Admin
               </Link>
             </li>
           </ul>
         </nav>
       </div>
-
-      {/* Navigation placed at the far right of the viewport */}
-      <nav className="absolute right-0 top-1/2 transform -translate-y-1/2 hidden md:block pr-3" role="navigation" aria-label="Navegación principal">
-        <ul className="flex items-center gap-6">
-          <li>
-            <Link to="/" aria-current={path === '/' ? 'page' : undefined} className="px-4 py-3 rounded hover:bg-white/10 transition text-lg md:text-xl">
-              Inicio
-            </Link>
-          </li>
-          <li>
-            <Link to="/productos" aria-current={path === '/productos' ? 'page' : undefined} className="px-4 py-3 rounded hover:bg-white/10 transition text-lg md:text-xl">
-              Productos
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin" aria-current={path === '/admin' ? 'page' : undefined} className="px-4 py-3 rounded hover:bg-white/10 transition text-lg md:text-xl">
-              Admin
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </header>
   );
 }

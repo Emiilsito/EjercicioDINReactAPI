@@ -3,90 +3,112 @@ import Layout from "../components/Layout";
 import { productos } from "../data/productos";
 
 /**
- * ProductDetailPage
- * Página de detalle de un producto.
- * - Lee el parámetro `id` de la ruta mediante `useParams`.
- * - Busca el producto en `src/data/productos` y lo muestra dentro de una tarjeta centrada.
- * Accesibilidad:
- *  - El título del producto tiene un id `product-title-{id}` y la sección está etiquetada con `aria-labelledby`.
+ * Componente de página que renderiza la vista detallada de un producto específico.
+ * * Gestiona la lógica de búsqueda del producto mediante el parámetro `id` de la URL 
+ * y maneja estados de error si el producto no existe.
+ * * @component
+ * @returns {JSX.Element} Estructura de la página que incluye el Layout, la imagen del producto 
+ * y sus especificaciones detalladas.
+ * * @accessibility
+ * - Utiliza `aria-labelledby` para vincular la sección con el título del producto.
+ * - El botón "Volver" incluye un `aria-label` descriptivo para lectores de pantalla.
+ * - Emplea etiquetas semánticas como `<section>` y `<article>` para una correcta jerarquía del DOM.
  */
 export default function ProductDetailPage() {
   const { id } = useParams();
   const productId = Number(id);
   const producto = productos.find((p) => p.id === productId);
 
+  // Caso: Producto no encontrado
   if (!producto) {
     return (
-      <Layout bgPage={'var(--color-white)'}>
-        <div className="min-h-screen px-6 py-20 text-center">
-          <h2 className="text-h2">Producto no encontrado</h2>
+      <Layout pageBg={'var(--color-white)'}>
+        <div className="text-center">
+          <h2 className="heading_h2">Producto no encontrado</h2>
+          <Link to="/productos" className="cta_button mt-8">
+            Volver a la tienda
+          </Link>
         </div>
       </Layout>
     );
   }
 
   return (
-    <Layout bgPage={'var(--color-white)'}>
-      <div className="min-h-screen">
-        {/* Outer wrapper: page background should be grey; card remains white */}
-        <section aria-labelledby={`product-title-${producto.id}`} style={{ backgroundColor: 'var(--color-grey-5)', paddingTop: '2rem' }}>
-          <div className="div-asside">
-            <aside aria-hidden="true asside-color" />
+    <Layout>
+      {/* El Layout ya proporciona el fondo gris y el main_content centrado */}
+      <section 
+        aria-labelledby={`product-title-${producto.id}`} 
+        className="w-full max-w-6xl mx-auto"
+      >
+        <article className="background_color_white rounded-lg shadow-[var(--dropshadow)] p-8 md:p-16">
+          
+          {/* Botón Volver con la clase cta_button del CSS */}
+          <div className="mb-12">
+            <Link
+              to="/productos"
+              aria-label="Volver a la lista de productos"
+              className="cta_button"
+            >
+              Volver
+            </Link>
+          </div>
 
-            {/* Center column with the card (vertically centered) */}
-            <div className="div-article">
-              <article className="w-full max-w-6xl bg-white rounded-lg shadow-custom" style={{ padding: '4.5rem 2rem' }}>
-                {/* Back button was here but moved into the details column to avoid overlapping the image */}
-                  <div className="mb-8">
-                    <Link
-                      to="/productos"
-                      aria-label="Volver a la lista de productos"
-                      title="Volver a la lista de productos"
-                      tabIndex={0}
-                      className="inline-block rounded-full font-semibold transition-transform transform hover:scale-105 focus:outline-none focus-ring-primary button"
-                    >
-                      Volver
-                    </Link>
-                  </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                  {/* Imagen */}
-                  <div className="flex items-center justify-center">
-                    <div className="w-full max-w-[520px]">
-                      <div className="rounded-lg p-6 flex items-center justify-center" style={{ border: '1px solid var(--color-grey-5)', backgroundColor: 'var(--color-white)' }}>
-                        <img src={producto.img} alt={producto.nombre} className="w-full object-contain" style={{ maxHeight: '74vh' }} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Details */}
-
-                  <div className="flex flex-col justify-center px-2 md:px-8">
-
-                    <h1 id={`product-title-${producto.id}`} className="text-4xl md:text-5xl font-extrabold" style={{ color: 'var(--color-black-2)' }}>{producto.nombre}</h1>
-
-                    <div className="mt-4" role="group" aria-labelledby={`product-title-${producto.id}`}>
-                      {producto.categoria ? (
-                        <span className="inline-block" style={{ backgroundColor: 'var(--color-secondary)', color: '#fff', padding: '6px 10px', borderRadius: '9999px', fontSize: '0.9rem' }}>{producto.categoria}</span>
-                      ) : (
-                        <span className="inline-block bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">General</span>
-                      )}
-                    </div>
-
-                    <p className="mt-6 text-lg" style={{ color: 'var(--color-grey-3)', lineHeight: 1.9 }}>{producto.descripcion}</p>
-
-                    <div className="mt-8">
-                      <p className="text-4xl font-bold" style={{ color: 'var(--color-primary)' }}>{producto.precio}</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            
+            {/* Contenedor de Imagen */}
+            <div className="flex items-center justify-center">
+              <div className="w-full rounded-lg p-6 border-2 border-[var(--color-grey-5)] bg-white flex items-center justify-center">
+                <img 
+                  src={producto.img} 
+                  alt={producto.nombre} 
+                  className="w-full object-contain max-h-[50vh]" 
+                />
+              </div>
             </div>
 
-            <aside aria-hidden="true aside-color"/>
+            {/* Detalles del Producto */}
+            <div className="flex flex-col items-start text-left">
+              
+              <h1 
+                id={`product-title-${producto.id}`} 
+                className="heading_h1"
+                style={{ color: 'var(--color-black-2)' }}
+              >
+                {producto.nombre}
+              </h1>
+
+              {/* Categoría / Badge */}
+              <div className="mt-4">
+                <span 
+                  className="inline-block px-4 py-1.5 rounded-full text-white font-bold text_small"
+                  style={{ backgroundColor: 'var(--color-secondary)' }}
+                >
+                  {producto.categoria || "General"}
+                </span>
+              </div>
+
+              {/* Descripción */}
+              <p 
+                className="text_normal mt-8" 
+                style={{ color: 'var(--color-grey-3)', lineHeight: '1.8' }}
+              >
+                {producto.descripcion}
+              </p>
+
+              {/* Precio */}
+              <div className="mt-10">
+                <p 
+                  className="heading_h2" 
+                  style={{ color: 'var(--color-primary)' }}
+                >
+                  {producto.precio}
+                </p>
+              </div>
+
+            </div>
           </div>
-        </section>
-  </div>
+        </article>
+      </section>
     </Layout>
   );
 }

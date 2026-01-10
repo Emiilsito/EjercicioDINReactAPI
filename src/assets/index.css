@@ -1,42 +1,149 @@
-@import "../assets/theme.css";
+@import "tailwindcss";
+@import "./theme.css";
 
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
-
+/* ==========================
+1. Configuración Global
+========================== 
+*/
 body {
   font-family: var(--font-primary);
-  /* Usamos el fondo gris claro definido en el theme para que las secciones blancas destaquen */
   background-color: var(--color-grey-5);
+  color: var(--color-black-2);
+  margin: 0;
+  @apply min-h-screen antialiased flex flex-col;
+}
+
+/* ==========================
+2. Barra de Navegación (Header)
+========================== 
+*/
+.navigation_bar {
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  box-shadow: var(--dropshadow);
+  @apply sticky top-0 z-50 flex items-center;
+}
+
+.header_container {
+  @apply w-full max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between;
+}
+
+.logo_and_title {
+  @apply whitespace-nowrap no-underline;
+  color: var(--color-white) !important;
+}
+
+.navigation_links {
+  @apply flex items-center gap-2 md:gap-4 list-none m-0 p-0;
+}
+
+.nav_link {
+  @apply px-3 py-1.5 rounded-md transition-all duration-200 no-underline inline-flex items-center;
+  color: var(--color-white) !important;
+}
+
+/* ==========================
+3. Estructura de Contenido Principal
+========================== 
+*/
+.main_content {
+  @apply py-10 px-6 md:px-10 flex flex-col items-center text-center justify-center flex-grow;
+  min-height: calc(100vh - var(--header-height) - 80px); 
+}
+
+.cta_button {
+  @apply inline-block px-8 py-3 rounded-full font-bold text-white transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg no-underline;
+  background: linear-gradient(180deg, rgba(6,110,204,1) 0%, rgba(3,60,114,1) 100%);
+}
+
+.background_color_white { 
+  background-color: var(--color-white) !important; 
+}
+
+/* ==========================
+4. Formularios (Admin)
+========================== 
+*/
+.form_card {
+  @apply w-full max-w-lg p-8 rounded-lg shadow-md mx-auto text-left;
+  background-color: var(--color-white-2);
+}
+
+.form_group {
+  @apply flex flex-col gap-2 mb-4;
+}
+
+.form_label {
+  @apply font-bold ml-1 text-sm;
   color: var(--color-black-2);
 }
 
-/* Make header and footer span full width and reserve space for them */
-.site-header {
-  width: 100%;
+.form_input {
+  @apply w-full p-3 rounded border-2 transition-all duration-300 focus:outline-none;
 }
 
+.form_input_base {
+  @apply border-gray-200 focus:border-[var(--color-primary)];
+}
+
+.form_input_error_state {
+  @apply border-[var(--color-error)] bg-red-50;
+}
+
+.form_button {
+  @apply w-full py-3 px-6 rounded font-bold text-white transition-all duration-300 transform active:scale-95 mt-4;
+  background: linear-gradient(180deg, rgba(6,110,204,1) 0%, rgba(3,60,114,1) 100%);
+}
+
+/* Clases de mensajes de estado */
+.success_message {
+  @apply p-4 mb-6 rounded-md font-bold text-sm border-l-4;
+  background-color: #d4edda;
+  color: #155724;
+  border-color: var(--color-success);
+}
+
+.error_message {
+  @apply text-xs mt-1 ml-1 font-semibold;
+  color: var(--color-error);
+}
+
+/* ==========================
+5. Pie de Página (Footer)
+========================== 
+*/
 .site-footer {
   width: 100%;
+  height: 80px; 
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  @apply flex items-center justify-center mt-auto;
 }
 
-/* Skip-link: hidden but visible when focused (keyboard users) */
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+/* ==========================
+6. Tipografía Semántica
+========================== 
+*/
+.heading_h1 { font-size: var(--heading-h1-font-size); font-weight: var(--heading-h1-font-weight); line-height: var(--heading-h1-line-height); }
+.heading_h2 { font-size: var(--heading-h2-font-size); font-weight: var(--heading-h2-font-weight); line-height: var(--heading-h2-line-height); }
+.heading_h4 { font-size: var(--heading-h4-font-size); font-weight: var(--heading-h4-font-weight); line-height: var(--heading-h4-line-height); }
+.heading_h5 { font-size: var(--heading-h5-font-size); font-weight: var(--heading-h5-font-weight); line-height: var(--heading-h5-line-height); }
+
+.text_normal { font-size: var(--text-normal-font-size); line-height: var(--text-normal-line-height); }
+.text_small { font-size: var(--text-small-font-size); line-height: var(--text-small-line-height); }
+
+@media (max-width: 640px) {
+  .heading_h1 { font-size: var(--heading-h3-font-size); }
+  .site-footer { height: 60px; }
 }
-.skip-link:focus {
-  left: 1rem;
-  top: 1rem;
-  width: auto;
-  height: auto;
-  background: var(--color-white);
-  color: var(--color-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  z-index: 9999;
+
+/* ==========================
+7. Accesibilidad
+========================== 
+*/
+.skip-link {
+  @apply absolute -left-[9999px] top-auto w-px h-px overflow-hidden;
+  @apply focus:left-4 focus:top-4 focus:w-auto focus:h-auto focus:bg-white focus:text-[var(--color-primary)] focus:p-4 focus:rounded focus:shadow-lg focus:z-50;
 }

@@ -6,59 +6,54 @@ import SearchBar from "../components/SearchBar";
 
 /**
  * ProductosPage
- * ----------------
- * Página que muestra la lista de productos dentro de una tarjeta centrada.
- * - Usa `ProductList` para renderizar la rejilla de productos.
- * - Mantiene la tarjeta blanca centrada con padding y títulos.
- *
- * Nota: Solo se añade documentación inline aquí; no se modifica la lógica ni
- * el layout existente.
+ * Página que muestra la lista de productos filtrable.
  */
 export default function ProductosPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Usamos useMemo para memorizar la lista filtrada.
-  // Solo se recalcula si 'searchTerm' cambia.
   const filteredProductos = useMemo(() => {
-    if (!searchTerm) {
-      return productos;
-      // Si no hay término, devuelve la lista completa
-    }
+    if (!searchTerm) return productos;
+    
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     return productos.filter((producto) =>
-      // Filtra por el nombre del producto
       producto.nombre.toLowerCase().includes(lowerCaseSearchTerm)
     );
   }, [searchTerm]);
 
-
   return (
     <Layout>
-      {/* Contenedor que centra el contenido entre header y footer */}
-      <div className="w-full px-6 bg-gray-200 flex items-center justify-center" style={{ minHeight: 'calc(100vh - var(--header-height, 0px) - var(--footer-height, 0px))', paddingTop: 'calc(var(--header-height) + 2rem)', paddingBottom: 'calc(var(--footer-height) + 2rem)' }}>
-        <div className="max-w-6xl w-full">
-          <header className="w-full text-center">
-            <h1 id="productos-heading" className="text-center mx-auto text-h1">
-              Nuestros Productos
-            </h1>
+      {/* El contenedor <main> del Layout ya tiene la clase .main_content, 
+        por lo que aquí solo organizamos el contenido interior.
+      */}
+      <div className="w-full max-w-6xl mx-auto">
+        
+        <header className="w-full mb-12">
+          {/* Usamos las clases de tipografía semántica del index.css */}
+          <h1 id="productos-heading" className="heading_h1">
+            Nuestros Productos
+          </h1>
 
-            <div className="w-full flex justify-center">
-            <SearchBar
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              placeholder="Buscar productos..."
-            />
-          </div>
+          <SearchBar
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            placeholder="Buscar productos..."
+          />
 
-            <p className="text-center mx-auto text-h4" >
-              Nuestro compromiso es claro: <strong>Ofrecer calidad al mejor precio</strong>
-            </p>
-          </header>
+          <p className="heading_h4 mx-auto mt-6">
+            Nuestro compromiso es claro: <strong>Ofrecer calidad al mejor precio</strong>
+          </p>
+        </header>
 
-          <div className="w-full mt-4">
-            <ProductList items={filteredProductos} onSelect={(p) => console.log('Producto seleccionado:', p.id)} />
-          </div>
+        {/* ProductList ya tiene su propio grid interno y max-width, 
+          así que solo le pasamos los productos filtrados. 
+        */}
+        <div className="w-full">
+          <ProductList 
+            items={filteredProductos} 
+            onSelect={(p) => console.log('Producto seleccionado:', p.id)} 
+          />
         </div>
+        
       </div>
     </Layout>
   );

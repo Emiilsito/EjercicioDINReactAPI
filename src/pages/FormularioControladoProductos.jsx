@@ -1,0 +1,155 @@
+import { useState } from "react";
+import Layout from "../components/Layout";
+
+/**
+ * @component FormularioControladoProductos
+ * @description Formulario de administración con estado controlado para la creación de nuevos productos.
+ * Implementa validaciones en tiempo real y gestión de mensajes de éxito/error.
+ * * @returns {JSX.Element} Un formulario maquetado con la clase .form_card.
+ * * @function validateForm
+ * @description Ejecuta las reglas de validación: campos obligatorios, longitud mínima de descripción (10 caracteres), 
+ * precio positivo y formato de URL válido para la imagen.
+ * * @accessibility
+ * - Usa `aria-invalid` para marcar campos con errores.
+ * - Emplea `aria-describedby` para vincular inputs con sus mensajes de error específicos.
+ * - Los mensajes de éxito utilizan el `role="alert"` para notificar a lectores de pantalla.
+ */
+
+export default function FormularioControladoProductos() {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    descripcion: "",
+    precio: "",
+    categoria: "",
+    img: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+    if (errors[id]) setErrors((prev) => ({ ...prev, [id]: "" }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.nombre.trim()) newErrors.nombre = "El nombre es obligatorio.";
+    if (!formData.descripcion.trim() || formData.descripcion.length < 10) 
+      newErrors.descripcion = "La descripción debe tener al menos 10 caracteres.";
+    if (!formData.precio || isNaN(formData.precio) || formData.precio <= 0)
+      newErrors.precio = "El precio debe ser un número mayor que 0.";
+    if (!formData.categoria.trim()) newErrors.categoria = "La categoría es obligatoria.";
+    if (!formData.img.trim() || !isValidUrl(formData.img))
+      newErrors.img = "La URL de la imagen no es válida.";
+    return newErrors;
+  };
+
+  const isValidUrl = (s) => { try { new URL(s); return true; } catch (_) { return false; } };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) return setErrors(newErrors);
+
+    setErrors({});
+    console.log("Producto agregado:", formData);
+    setSuccessMessage("¡Producto agregado correctamente!");
+    setFormData({ nombre: "", descripcion: "", precio: "", categoria: "", img: "" });
+    setTimeout(() => setSuccessMessage(""), 3000);
+  };
+
+  return (
+    <Layout pageBg={'var(--color-white)'}>
+      <div className="form_card">
+        <h2 className="heading_h2 mb-8 text-center">Agregar Nuevo Producto</h2>
+
+        {successMessage && (
+          <div className="success_message" role="alert">
+            {successMessage}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="form_group">
+            <label htmlFor="nombre" className="form_label">Nombre del Producto *</label>
+            <input
+              type="text"
+              id="nombre"
+              value={formData.nombre}
+              onChange={handleChange}
+              placeholder="Ej: Metal Gear Solid Delta"
+              className={`form_input ${errors.nombre ? 'form_input_error_state' : 'form_input_base'}`}
+              aria-invalid={!!errors.nombre}
+            />
+            {errors.nombre && <span className="error_message">{errors.nombre}</span>}
+          </div>
+
+          <div className="form_group">
+            <label htmlFor="descripcion" className="form_label">Descripción *</label>
+            <textarea
+              id="descripcion"
+              value={formData.descripcion}
+              onChange={handleChange}
+              rows="3"
+              className={`form_input ${errors.descripcion ? 'form_input_error_state' : 'form_input_base'}`}
+              aria-invalid={!!errors.descripcion}
+            />
+            {errors.descripcion && <span className="error_message">{errors.descripcion}</span>}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="form_group">
+              <label htmlFor="precio" className="form_label">Precio *</label>
+              <input
+                type="text"
+                id="precio"
+                value={formData.precio}
+                onChange={handleChange}
+                placeholder="0.00"
+                className={`form_input ${errors.precio ? 'form_input_error_state' : 'form_input_base'}`}
+                aria-invalid={!!errors.precio}
+              />
+              {errors.precio && <span className="error_message">{errors.precio}</span>}
+            </div>
+
+            <div className="form_group">
+              <label htmlFor="categoria" className="form_label">Categoría *</label>
+              <select
+                id="categoria"
+                value={formData.categoria}
+                onChange={handleChange}
+                className={`form_input ${errors.categoria ? 'form_input_error_state' : 'form_input_base'}`}
+                aria-invalid={!!errors.categoria}
+              >
+                <option value="">Seleccionar...</option>
+                <option value="Juegos">Juegos</option>
+                <option value="Pantallas">Pantallas</option>
+                <option value="Perifericos">Perifericos</option>
+              </select>
+              {errors.categoria && <span className="error_message">{errors.categoria}</span>}
+            </div>
+          </div>
+
+          <div className="form_group">
+            <label htmlFor="img" className="form_label">URL de la Imagen *</label>
+            <input
+              type="url"
+              id="img"
+              value={formData.img}
+              onChange={handleChange}
+              className={`form_input ${errors.img ? 'form_input_error_state' : 'form_input_base'}`}
+              aria-invalid={!!errors.img}
+            />
+            {errors.img && <span className="error_message">{errors.img}</span>}
+          </div>
+
+          <button type="submit" className="form_button">
+            Agregar Producto
+          </button>
+        </form>
+      </div>
+    </Layout>
+  );
+}

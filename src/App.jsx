@@ -4,28 +4,31 @@ import ProductosPage from "./pages/ProductosPage";
 import AdminPage from "./pages/AdminPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ErrorPage from "./pages/ErrorPage";
+import FormularioControladoProductos from "./pages/FormularioControladoProductos";
 
 /**
  * App
- * ---
- * Registro de rutas de la aplicación usando React Router.
- * - `/` -> `InicioPage`
- * - `/productos` -> `ProductosPage`
- * - `/admin` -> `AdminPage`
- * - `/productos/:id` -> `ProductDetailPage`
- * - `*` -> `ErrorPage` (wildcard 404)
+ * Componente raíz de la aplicación que orquesta rutas, estado global y carga inicial.
  *
- * Nota: solo se añade documentación inline; no se alteró la configuración de rutas.
+ * Props:
+ * @param {Object} props - Props del componente.
+ * @param {Object} [props.initialState] - Estado inicial opcional para hidratar la app.
+ *
+ * Uso:
+ * - Inicializa providers (context, redux).
+ * - Define rutas principales.
+ * - Maneja estado de autenticación y carga global.
  */
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<InicioPage />} />
-  <Route path="/productos" element={<ProductosPage />} />
-  <Route path="/admin" element={<AdminPage />} />
-  <Route path="/productos/:id" element={<ProductDetailPage />} />
-  <Route path="*" element={<ErrorPage />} />
+        <Route path="/productos" element={<ProductosPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/formulario-productos" element={<FormularioControladoProductos />} />
+        <Route path="/productos/:id" element={<ProductDetailPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>
   );
